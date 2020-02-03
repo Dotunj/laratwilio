@@ -1,5 +1,7 @@
 {
     "name": "dotunj/laratwilio",
+    "description": "A Laravel Package for sending SMS messages with Twilio",
+    "license": "MIT",
     "authors": [
         {
             "name": "Dotun",
