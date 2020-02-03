@@ -3,19 +3,19 @@
 namespace Dotunj\LaraTwilio;
 
 use Exception;
-use Twilio\Rest\Client;
-use Dotunj\LaraTwilio\LaraTwilio;
 use Illuminate\Support\ServiceProvider;
+use Twilio\Rest\Client;
 
 class LaraTwilioServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/laratwilio.php', 'laratwilio');
+        $this->mergeConfigFrom(__DIR__.'/../config/laratwilio.php', 'laratwilio');
 
         $this->app->bind('laratwilio', function () {
             $this->ensureConfigValuesAreSet();
             $client = new Client(config('laratwilio.account_sid'), config('laratwilio.auth_token'));
+
             return new LaraTwilio($client);
         });
     }
@@ -41,7 +41,7 @@ class LaraTwilioServiceProvider extends ServiceProvider
     protected function publishConfig()
     {
         $this->publishes([
-            __DIR__ . '/../config/laratwilio.php' => config_path('laratwilio.php'),
+            __DIR__.'/../config/laratwilio.php' => config_path('laratwilio.php'),
         ], 'laratwilio-config');
     }
 }

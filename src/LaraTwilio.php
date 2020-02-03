@@ -18,7 +18,7 @@ class LaraTwilio
     {
         return $this->client->messages->create($number, [
             'from' => config('laratwilio.sms_from'),
-            'body' => $message
+            'body' => $message,
         ]);
     }
 }
