@@ -1,0 +1,30 @@
+{
+    "name": "dotunj/laratwilio",
+    "authors": [
+        {
+            "name": "Dotun",
+            "email": "dotunjolaosho@gmail.com"
+        }
+    ],
+    "require": {
+        "twilio/sdk": "^5.42"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dotunj\\LaraTwilio\\":"src/"
+        }
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dotunj\\LaraTwilio\\LaraTwilioServiceProvider"
+            ],
+            "aliases": {
+                "LaraTwilio": "Dotunj\\LaraTwilio\\Facades\\LaraTwilio"
+            }
+        }
+    }
+}
