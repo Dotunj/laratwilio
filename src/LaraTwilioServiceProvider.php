@@ -6,8 +6,18 @@ use Exception;
 use Illuminate\Support\ServiceProvider;
 use Twilio\Rest\Client;
 
+/**
+ * Class LaraTwilioServiceProvider
+ *
+ * Service provider for LaraTwilio package.
+ */
 class LaraTwilioServiceProvider extends ServiceProvider
 {
+    /**
+     * Register services and bindings.
+     *
+     * @return void
+     */
     public function register()
     {
         $this->mergeConfigFrom(__DIR__.'/../config/laratwilio.php', 'laratwilio');
@@ -20,6 +30,11 @@ class LaraTwilioServiceProvider extends ServiceProvider
         });
     }
 
+    /**
+     * Bootstrap the application services.
+     *
+     * @return void
+     */
     public function boot()
     {
         if ($this->app->runningInConsole()) {
@@ -27,17 +42,31 @@ class LaraTwilioServiceProvider extends ServiceProvider
         }
     }
 
+    /**
+     * Ensure validation.
+     *
+     * @return void
+     */
     protected function ensureConfigValuesAreSet()
     {
         $mandatoryAttributes = config('laratwilio');
 
-        foreach ($mandatoryAttributes as $key => $value) {
-            if (empty($value)) {
+        foreach (['account_sid', 'auth_token'] as $key) {
+            if (empty($mandatoryAttributes[$key])) {
                 throw new Exception("Please provide a value for ${key}");
             }
         }
+
+        if (empty($mandatoryAttributes['sms_from']) || !is_array($mandatoryAttributes['sms_from'])) {
+            throw new Exception("Please provide at least one valid Twilio SMS_FROM number.");
+        }
     }
 
+    /**
+     * Publish configuration file.
+     *
+     * @return void
+     */
     protected function publishConfig()
     {
         $this->publishes([
